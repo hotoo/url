@@ -12,6 +12,9 @@
   "bugs": {
     "url": "https://github.com/hotoo/url/issues"
   },
+  "scripts": {
+    "prepublish": "spm build"
+  },
   "keywords": ["widget"],
   "licenses": "MIT",
   "spm": {
