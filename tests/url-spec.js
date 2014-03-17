@@ -176,6 +176,33 @@ define(function(require) {
       expect(Url.verify("http://www.example.com/path/to/index.html?q=a&u=b&q=c#hash")).to.equal(true);
     });
 
+    it('中文编码', function() {
+      var cn = "中文编码";
+      var url = new Url("http://www.example.com/path/to/index.html?cn="+encodeURIComponent(cn));
+      expect(url.getParam("cn")).to.equal(cn);
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?cn="+encodeURIComponent(cn));
+
+      url.addParam("cn2", cn);
+      expect(url.getParam("cn2")).to.equal(cn);
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?cn="+encodeURIComponent(cn)+"&cn2="+encodeURIComponent(cn));
+
+      url.setParam("cn", cn);
+      expect(url.getParam("cn")).to.equal(cn);
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?cn="+encodeURIComponent(cn)+
+        "&cn2="+encodeURIComponent(cn));
+
+      url.setParam("cn3", cn);
+      expect(url.getParam("cn3")).to.equal(cn);
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?cn="+encodeURIComponent(cn)+
+        "&cn2="+encodeURIComponent(cn) +
+        "&cn3="+encodeURIComponent(cn));
+
+      url.delParam("cn3");
+      expect(url.getParam("cn3")).to.equal(null);
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?cn="+encodeURIComponent(cn)+
+        "&cn2="+encodeURIComponent(cn));
+    });
+
   });
 
 });
