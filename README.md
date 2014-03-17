@@ -2,11 +2,14 @@
 
 ---
 
+[![Build Status](https://travis-ci.org/hotoo/url.png)](https://travis-ci.org/hotoo/url)
+[![Coverage Status](https://coveralls.io/repos/hotoo/url/badge.png?branch=master)](https://coveralls.io/r/hotoo/url)
+
 Uniform Resource Locator.
 
 ---
 
-## 使用说明
+## Usage
 
 ```js
 var Url = require("url");
