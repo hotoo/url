@@ -172,6 +172,10 @@ define(function(require) {
       expect(url.toString()).to.equal("http://www.example.com/path/to/index.html#hash");
     });
 
+    it('Url.verify', function() {
+      expect(Url.verify("http://www.example.com/path/to/index.html?q=a&u=b&q=c#hash")).to.equal(true);
+    });
+
   });
 
 });
