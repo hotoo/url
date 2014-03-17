@@ -26,10 +26,10 @@ define(function(require, exports, module) {
     this.password = u[4];
     this.host = u[5];
     this.port = u[6] || DEFAULT_PORT[this.protocol.replace(/:$/,"")] || "";
-    this.path = u[7];
-    this.query = u[8];
+    this.path = u[7] || "/";
+    this.query = u[8] || "";
     this._query = parseQuery(u[8]);
-    this.fragment = u[9];
+    this.fragment = u[9] || "";
   };
 
   function parseQuery(query){
