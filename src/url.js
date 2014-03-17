@@ -60,6 +60,26 @@ define(function(require, exports, module) {
     return rst;
   }
 
+  // make querystring from object.
+  // @param {Object} object, key:value pair object.
+  // @return {String}
+  function makeQueryString(object){
+    var query = [];
+    for(var key in object){
+      if(!object.hasOwnProperty(key)){continue;}
+      var _key = encodeURIComponent(key);
+      var values = object[key];
+      if(isArray(values)){
+        for(var i=0,l=values.length; i<l; i++){
+          query.push(_key + '=' + encodeURIComponent(values[i]));
+        }
+      }else{
+        query.push(_key + '=' + encodeURIComponent(values));
+      }
+    }
+    return (query.length === 0 ? '' : '?') + query.join('&');
+  }
+
   // Get param, if has more than one, return the first one.
   // if has no-one, return null.
   //
@@ -121,26 +141,6 @@ define(function(require, exports, module) {
     this.query = makeQueryString(this._query);
     return this;
   };
-
-  // make querystring from object.
-  // @param {Object} object, key:value pair object.
-  // @return {String}
-  function makeQueryString(object){
-    var query = [];
-    for(var key in object){
-      if(!object.hasOwnProperty(key)){continue;}
-      var _key = encodeURIComponent(key);
-      var values = object[key];
-      if(isArray(values)){
-        for(var i=0,l=values.length; i<l; i++){
-          query.push(_key + '=' + encodeURIComponent(values[i]));
-        }
-      }else{
-        query.push(_key + '=' + encodeURIComponent(values));
-      }
-    }
-    return (query.length === 0 ? '' : '?') + query.join('&');
-  }
 
   Url.prototype.toString = function(){
     return this.protocol + '//' +
