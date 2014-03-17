@@ -23,7 +23,6 @@ define(function(require) {
       var url = new Url("http://www.google.com/path/to/index.html?q=a&u=b&q=c#hash");
       url.delParam("q");
       expect(url.getParam("q")).to.equal(null);
-      console.log(url.toString())
 
     });
 
