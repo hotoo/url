@@ -5,14 +5,14 @@ define(function(require, exports, module) {
   //                ------       -----  ------   -----------     -----  ----------- --------- -----
   var RE_URL = /^(?:(\w+:)\/\/)?((\w+):?(\w+)?@)?([^\/\?:]+)(?:\:(\d+))?(\/[^\?#]+)?(\?[^#]+)?(#.*)?/;
   var DEFAULT_PORT = {
-    ftp:21,
-    ssh:22,
-    telnet:23,
-    smtp:25,
-    http:80,
-    pop3:109,
-    https:443,
-    mms:1755
+    "ftp:":    "21",
+    "ssh:":    "22",
+    "telnet:": "23",
+    "smtp:":   "25",
+    "http:":   "80",
+    "pop3:":   "109",
+    "https:":  "443",
+    "mms:":    "1755"
   };
 
   var Url = function(url){
@@ -25,7 +25,7 @@ define(function(require, exports, module) {
     this.username = u[3];
     this.password = u[4];
     this.host = u[5];
-    this.port = u[6] || DEFAULT_PORT[this.protocol.replace(/:$/,"")] || "";
+    this.port = u[6] || DEFAULT_PORT[this.protocol] || "";
     this.path = u[7] || "/";
     this.query = u[8] || "";
     this._query = parseQuery(u[8]);
@@ -106,7 +106,7 @@ define(function(require, exports, module) {
   Url.prototype.addParam = function(name, value){
     if(!isArray(value)){value = [value];}
     if(this._query.hasOwnProperty(name)){
-      this._query[name].concat(value);
+      this._query[name] = this._query[name].concat(value);
     }else{
       this._query[name] = value;
     }
