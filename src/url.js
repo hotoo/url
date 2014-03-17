@@ -122,19 +122,34 @@ define(function(require, exports, module) {
     return this;
   };
 
+  // make querystring from object.
+  // @param {Object} object, key:value pair object.
+  // @return {String}
   function makeQueryString(object){
     var query = [];
     for(var key in object){
       if(!object.hasOwnProperty(key)){continue;}
-      query.push(encodeURIComponent(key) + '=' + encodeURIComponent(object[key]));
+      var _key = encodeURIComponent(key);
+      var values = object[key];
+      if(isArray(values)){
+        for(var i=0,l=values.length; i<l; i++){
+          query.push(_key + '=' + encodeURIComponent(values[i]));
+        }
+      }else{
+        query.push(_key + '=' + encodeURIComponent(values));
+      }
     }
-    return '?' + query.join('&');
+    return (query.length === 0 ? '' : '?') + query.join('&');
   }
 
   Url.prototype.toString = function(){
     return this.protocol + '//' +
       (this.username ? this.username + ':' + this.password + '@' : '') +
-      this.host + (this.port ? ':' + this.port : '') +
+      this.host +
+      // default port donot print.
+      (this.port && !DEFAULT_PORT.hasOwnProperty(this.protocol) &&
+        DEFAULT_PORT[this.protocol] !== this.port ?
+        ':' + this.port : '') +
       this.path + makeQueryString(this._query) + this.fragment;
   };
 

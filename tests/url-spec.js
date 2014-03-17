@@ -108,33 +108,37 @@ define(function(require) {
 
     it('delete param', function() {
 
-      var url = new Url("http://www.google.com/path/to/index.html?q=a&u=b&q=c#hash");
+      var url = new Url("http://www.example.com/path/to/index.html?q=a&u=b&q=c#hash");
       expect(url.getParam("q")).to.equal("a");
       url.delParam("q");
       expect(url.getParam("q")).to.equal(null);
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?u=b#hash");
 
     });
 
     it('set param (add or replace param).', function() {
 
-      var url = new Url("http://www.google.com/path/to/index.html?q=a&u=b&q=c#hash");
+      var url = new Url("http://www.example.com/path/to/index.html?q=a&u=b&q=c#hash");
       expect(url.getParam("q")).to.equal("a");
       url.setParam("q", "QQQ");
       expect(url.getParam("q")).to.equal("QQQ");
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?q=QQQ&u=b#hash");
 
       expect(url.getParam("x")).to.equal(null);
       url.setParam("x", "XXX");
       expect(url.getParam("x")).to.equal("XXX");
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?q=QQQ&u=b&x=XXX#hash");
 
     });
 
     it('add param', function() {
 
-      var url = new Url("http://www.google.com/path/to/index.html?q=a&u=b&q=c#hash");
+      var url = new Url("http://www.example.com/path/to/index.html?q=a&u=b&q=c#hash");
       var params_q = url.getParams("q");
       expect(params_q.length).to.equal(2);
       expect(params_q[0]).to.equal("a");
       expect(params_q[1]).to.equal("c");
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?q=a&q=c&u=b#hash");
 
       url.addParam("q", "QQQ");
       var params_Q = url.getParams("q");
@@ -142,6 +146,7 @@ define(function(require) {
       expect(params_Q[0]).to.equal("a");
       expect(params_Q[1]).to.equal("c");
       expect(params_Q[2]).to.equal("QQQ");
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?q=a&q=c&q=QQQ&u=b#hash");
 
       url.addParam("q", ["XXX", "YYY", "ZZZ"]);
       var params_z = url.getParams("q");
@@ -152,16 +157,19 @@ define(function(require) {
       expect(params_z[3]).to.equal("XXX");
       expect(params_z[4]).to.equal("YYY");
       expect(params_z[5]).to.equal("ZZZ");
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?q=a&q=c&q=QQQ&q=XXX&q=YYY&q=ZZZ&u=b#hash");
 
     });
 
     it('clear param', function() {
-      var url = new Url("http://www.google.com/path/to/index.html?q=a&u=b&q=c#hash");
+      var url = new Url("http://www.example.com/path/to/index.html?q=a&u=b&q=c#hash");
       expect(url.getParams("q").length).to.equal(2);
       expect(url.getParams("u").length).to.equal(1);
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html?q=a&q=c&u=b#hash");
       url.clearParams();
       expect(url.getParams("q").length).to.equal(0);
       expect(url.getParams("u").length).to.equal(0);
+      expect(url.toString()).to.equal("http://www.example.com/path/to/index.html#hash");
     });
 
   });
