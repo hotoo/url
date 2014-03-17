@@ -17,6 +17,24 @@ define(function(require) {
       expect(url.getParams("q").join(", ")).to.equal("a, c");
 
     });
+
+    it('advance usage', function() {
+
+      var url = new Url("http://www.google.com/path/to/index.html?q=a&u=b&q=c#hash");
+      url.delParam("q");
+      expect(url.getParam("q")).to.equal(null);
+      console.log(url.toString())
+
+    });
+
+    it('set param (add or replace param).', function() {
+
+      var url = new Url("http://www.google.com/path/to/index.html?q=a&u=b&q=c#hash");
+      url.setParam("q", "QQQ");
+      expect(url.getParam("q")).to.equal("QQQ");
+
+    });
+
   });
 
 });
