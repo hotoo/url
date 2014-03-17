@@ -49,3 +49,8 @@ Add or replace param values named `name`.
 ### Url clearParams()
 
 Clear all param datas.
+
+
+## Licenses
+
+MIT
