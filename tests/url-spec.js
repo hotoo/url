@@ -118,8 +118,13 @@ define(function(require) {
     it('set param (add or replace param).', function() {
 
       var url = new Url("http://www.google.com/path/to/index.html?q=a&u=b&q=c#hash");
+      expect(url.getParam("q")).to.equal("a");
       url.setParam("q", "QQQ");
       expect(url.getParam("q")).to.equal("QQQ");
+
+      expect(url.getParam("x")).to.equal(null);
+      url.setParam("x", "XXX");
+      expect(url.getParam("x")).to.equal("XXX");
 
     });
 
