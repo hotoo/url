@@ -110,6 +110,15 @@ define(function(require, exports, module) {
     }else{
       this._query[name] = value;
     }
+    this.query = makeQueryString(this._query);
+    return this;
+  };
+
+  // Clear all param datas.
+  // @return {Url} this.
+  Url.prototype.clearParams = function(){
+    this._query = {};
+    this.query = makeQueryString(this._query);
     return this;
   };
 

@@ -45,3 +45,7 @@ Add params named `name`.
 ### Url setParam(String name, String|Array)
 
 Add or replace param values named `name`.
+
+### Url clearParams()
+
+Clear all param datas.
