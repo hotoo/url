@@ -26,6 +26,15 @@ console.log(url.getParams("pa")); // ["A1", "A2"]
 
 Constructor.
 
+* protocol
+* username
+* password
+* host
+* port
+* path
+* query
+* fragment
+
 ### String getParam(String name)
 
 Get named `name` param string the first.
