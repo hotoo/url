@@ -59,6 +59,14 @@ Add or replace param values named `name`.
 
 Clear all param datas.
 
+### String toString()
+
+Return url string.
+
+### Boolean Url.verify(String url)
+
+Static method.
+
 
 ## Licenses
 
