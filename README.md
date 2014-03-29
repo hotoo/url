@@ -26,11 +26,12 @@ console.log(url.getParams("pa")); // ["A1", "A2"]
 
 Constructor.
 
-* `origin`: readonly.
+* `origin`: readonly, and not changed when protocol, hostname, port modified!
+  until one day most of all browseres supports `Object.defineProperty()`.
 * `protocol`: read+write.
 * `username`: read+write.
 * `password`: read+write.
-* `host`: readonly.
+* `host`: readonly, not changed same the `origin` property.
 * `hostname`: read+write.
 * `port`: read+write.
 * `path`: read+write.
