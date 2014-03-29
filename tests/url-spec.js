@@ -10,7 +10,7 @@ define(function(require) {
         protocol: "http:",
         host: "www.example.com",
         hostname: "www.example.com",
-        port: "80",
+        port: "",
         path: "/",
         search: "",
         hash: ""
@@ -19,7 +19,7 @@ define(function(require) {
         protocol: "http:",
         host: "www.example.com",
         hostname: "www.example.com",
-        port: "80",
+        port: "",
         path: "/",
         search: "",
         hash: ""
@@ -28,7 +28,7 @@ define(function(require) {
         protocol: "https:",
         host: "www.example.com",
         hostname: "www.example.com",
-        port: "443",
+        port: "",
         path: "/path/to/page.html",
         search: "",
         hash: ""

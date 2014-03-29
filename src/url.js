@@ -8,16 +8,6 @@ define(function(require, exports, module) {
   //                                |             -------------------------
   //                            1.origin                    |
   //                                                    6.host
-  var DEFAULT_PORT = {
-    "ftp:":    "21",
-    "ssh:":    "22",
-    "telnet:": "23",
-    "smtp:":   "25",
-    "http:":   "80",
-    "pop3:":   "109",
-    "https:":  "443",
-    "mms:":    "1755"
-  };
 
   var Url = function(url){
     var u = RE_URL.exec(url);
@@ -29,9 +19,9 @@ define(function(require, exports, module) {
     this.authority;
     this.username = u[4];
     this.password = u[5];
-    this.host = u[6];
-    this.hostname = u[7];
-    this.port = u[8] || DEFAULT_PORT[this.protocol] || "";
+    this.host = u[6] || "";
+    this.hostname = u[7] || "";
+    this.port = u[8] || "";
     this.path = u[9] || "/";
     this.search = u[10] || "";
     this._query = parseQuery(this.search);
@@ -153,9 +143,7 @@ define(function(require, exports, module) {
       (this.username ? this.username + ':' + this.password + '@' : '') +
       this.host +
       // default port donot print.
-      (this.port && !DEFAULT_PORT.hasOwnProperty(this.protocol) &&
-        DEFAULT_PORT[this.protocol] !== this.port ?
-        ':' + this.port : '') +
+      (this.port ? ':' + this.port : '') +
       this.path + makeQueryString(this._query) + this.hash;
   };
 
