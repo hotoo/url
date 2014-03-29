@@ -35,7 +35,7 @@ define(function(require, exports, module) {
     this.path = u[9] || "/";
     this.query = u[10] || "";
     this._query = parseQuery(this.query);
-    this.fragment = u[11] || "";
+    this.hash = u[11] || "";
   };
 
   function parseQuery(query){
@@ -156,7 +156,7 @@ define(function(require, exports, module) {
       (this.port && !DEFAULT_PORT.hasOwnProperty(this.protocol) &&
         DEFAULT_PORT[this.protocol] !== this.port ?
         ':' + this.port : '') +
-      this.path + makeQueryString(this._query) + this.fragment;
+      this.path + makeQueryString(this._query) + this.hash;
   };
 
   Url.verify = function(uri){
