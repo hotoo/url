@@ -13,7 +13,7 @@ define(function(require) {
         port: "80",
         path: "/",
         query: "",
-        fragment: ""
+        hash: ""
       }],
       ["http://www.example.com/", {
         protocol: "http:",
@@ -22,7 +22,7 @@ define(function(require) {
         port: "80",
         path: "/",
         query: "",
-        fragment: ""
+        hash: ""
       }],
       ["https://www.example.com/path/to/page.html", {
         protocol: "https:",
@@ -31,7 +31,7 @@ define(function(require) {
         port: "443",
         path: "/path/to/page.html",
         query: "",
-        fragment: ""
+        hash: ""
       }],
       ["http://www.example.com:8080/path/to/page.html?abc=A1&abc=A2", {
         protocol: "http:",
@@ -40,7 +40,7 @@ define(function(require) {
         port: "8080",
         path: "/path/to/page.html",
         query: "?abc=A1&abc=A2",
-        fragment: ""
+        hash: ""
       }],
       ["http://user@www.example.com:8080/path/to/page.html?abc=A1&abc=A2#hash", {
         protocol: "http:",
@@ -51,7 +51,7 @@ define(function(require) {
         port: "8080",
         path: "/path/to/page.html",
         query: "?abc=A1&abc=A2",
-        fragment: "#hash"
+        hash: "#hash"
       }],
       ["http://user:pass@www.example.com:8080/path/to/page.html?abc=A1&abc=A2#hash", {
         protocol: "http:",
@@ -62,7 +62,7 @@ define(function(require) {
         port: "8080",
         path: "/path/to/page.html",
         query: "?abc=A1&abc=A2",
-        fragment: "#hash"
+        hash: "#hash"
       }],
     ];
 
@@ -80,7 +80,7 @@ define(function(require) {
         expect(url.port).to.equal(r.port);
         expect(url.path).to.equal(r.path);
         expect(url.query).to.equal(r.query);
-        expect(url.fragment).to.equal(r.fragment);
+        expect(url.hash).to.equal(r.hash);
 
       });
 
