@@ -12,7 +12,7 @@ define(function(require) {
         hostname: "www.example.com",
         port: "80",
         path: "/",
-        query: "",
+        search: "",
         hash: ""
       }],
       ["http://www.example.com/", {
@@ -21,7 +21,7 @@ define(function(require) {
         hostname: "www.example.com",
         port: "80",
         path: "/",
-        query: "",
+        search: "",
         hash: ""
       }],
       ["https://www.example.com/path/to/page.html", {
@@ -30,7 +30,7 @@ define(function(require) {
         hostname: "www.example.com",
         port: "443",
         path: "/path/to/page.html",
-        query: "",
+        search: "",
         hash: ""
       }],
       ["http://www.example.com:8080/path/to/page.html?abc=A1&abc=A2", {
@@ -39,7 +39,7 @@ define(function(require) {
         hostname: "www.example.com",
         port: "8080",
         path: "/path/to/page.html",
-        query: "?abc=A1&abc=A2",
+        search: "?abc=A1&abc=A2",
         hash: ""
       }],
       ["http://user@www.example.com:8080/path/to/page.html?abc=A1&abc=A2#hash", {
@@ -50,7 +50,7 @@ define(function(require) {
         hostname: "www.example.com",
         port: "8080",
         path: "/path/to/page.html",
-        query: "?abc=A1&abc=A2",
+        search: "?abc=A1&abc=A2",
         hash: "#hash"
       }],
       ["http://user:pass@www.example.com:8080/path/to/page.html?abc=A1&abc=A2#hash", {
@@ -61,7 +61,7 @@ define(function(require) {
         hostname: "www.example.com",
         port: "8080",
         path: "/path/to/page.html",
-        query: "?abc=A1&abc=A2",
+        search: "?abc=A1&abc=A2",
         hash: "#hash"
       }],
     ];
@@ -80,7 +80,7 @@ define(function(require) {
         expect(url.hostname).to.equal(r.hostname);
         expect(url.port).to.equal(r.port);
         expect(url.path).to.equal(r.path);
-        expect(url.query).to.equal(r.query);
+        expect(url.search).to.equal(r.search);
         expect(url.hash).to.equal(r.hash);
 
       });

@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 
-  //             2.protocol  4.username 5.password 7.hostname     8.port     9.path    10.query 11.hash
+  //             2.protocol  4.username 5.password 7.hostname     8.port     9.path   10.search 11.hash
   //                    |           |       |           |            |          |           |       |
   //                 ------       -----  ------    -----------     -----    ----------- --------- -----
   var RE_URL = /^((?:(\w+:)\/\/)?((\w+):?(\w+)?@)?(([^\/\?:]+)(?:\:(\d+))?))(\/[^\?#]+)?(\?[^#]+)?(#.*)?/;
@@ -33,8 +33,8 @@ define(function(require, exports, module) {
     this.hostname = u[7];
     this.port = u[8] || DEFAULT_PORT[this.protocol] || "";
     this.path = u[9] || "/";
-    this.query = u[10] || "";
-    this._query = parseQuery(this.query);
+    this.search = u[10] || "";
+    this._query = parseQuery(this.search);
     this.hash = u[11] || "";
   };
 
@@ -109,7 +109,7 @@ define(function(require, exports, module) {
   Url.prototype.delParam = function(name){
     try{
       delete this._query[name];
-      this.query = makeQueryString(this._query);
+      this.search = makeQueryString(this._query);
     }catch(ex){}
     return this;
   };
@@ -121,7 +121,7 @@ define(function(require, exports, module) {
   Url.prototype.setParam = function(name, value){
     if(!isArray(value)){value = [value];}
     this._query[name] = value;
-    this.query = makeQueryString(this._query);
+    this.search = makeQueryString(this._query);
     return this;
   };
 
@@ -136,7 +136,7 @@ define(function(require, exports, module) {
     }else{
       this._query[name] = value;
     }
-    this.query = makeQueryString(this._query);
+    this.search = makeQueryString(this._query);
     return this;
   };
 
@@ -144,7 +144,7 @@ define(function(require, exports, module) {
   // @return {Url} this.
   Url.prototype.clearParams = function(){
     this._query = {};
-    this.query = makeQueryString(this._query);
+    this.search = makeQueryString(this._query);
     return this;
   };
 
