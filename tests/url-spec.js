@@ -9,6 +9,7 @@ define(function(require) {
       ["http://www.example.com", {
         protocol: "http:",
         host: "www.example.com",
+        hostname: "www.example.com",
         port: "80",
         path: "/",
         query: "",
@@ -17,6 +18,7 @@ define(function(require) {
       ["http://www.example.com/", {
         protocol: "http:",
         host: "www.example.com",
+        hostname: "www.example.com",
         port: "80",
         path: "/",
         query: "",
@@ -25,6 +27,7 @@ define(function(require) {
       ["https://www.example.com/path/to/page.html", {
         protocol: "https:",
         host: "www.example.com",
+        hostname: "www.example.com",
         port: "443",
         path: "/path/to/page.html",
         query: "",
@@ -32,7 +35,8 @@ define(function(require) {
       }],
       ["http://www.example.com:8080/path/to/page.html?abc=A1&abc=A2", {
         protocol: "http:",
-        host: "www.example.com",
+        host: "www.example.com:8080",
+        hostname: "www.example.com",
         port: "8080",
         path: "/path/to/page.html",
         query: "?abc=A1&abc=A2",
@@ -42,7 +46,8 @@ define(function(require) {
         protocol: "http:",
         username: "user",
         password: undefined,
-        host: "www.example.com",
+        host: "www.example.com:8080",
+        hostname: "www.example.com",
         port: "8080",
         path: "/path/to/page.html",
         query: "?abc=A1&abc=A2",
@@ -52,7 +57,8 @@ define(function(require) {
         protocol: "http:",
         username: "user",
         password: "pass",
-        host: "www.example.com",
+        host: "www.example.com:8080",
+        hostname: "www.example.com",
         port: "8080",
         path: "/path/to/page.html",
         query: "?abc=A1&abc=A2",

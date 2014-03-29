@@ -1,9 +1,13 @@
 define(function(require, exports, module) {
 
-  //                protocol   username password    host         port     path        query   hash
-  //                   |           |       |          |            |        |           |       |
-  //                ------       -----  ------   -----------     -----  ----------- --------- -----
-  var RE_URL = /^(?:(\w+:)\/\/)?((\w+):?(\w+)?@)?([^\/\?:]+)(?:\:(\d+))?(\/[^\?#]+)?(\?[^#]+)?(#.*)?/;
+  //             2.protocol  4.username 5.password 7.hostname     8.port     9.path    10.query 11.hash
+  //                    |           |       |           |            |          |           |       |
+  //                 ------       -----  ------    -----------     -----    ----------- --------- -----
+  var RE_URL = /^((?:(\w+:)\/\/)?((\w+):?(\w+)?@)?(([^\/\?:]+)(?:\:(\d+))?))(\/[^\?#]+)?(\?[^#]+)?(#.*)?/;
+  //             -----------------------------------------------------------
+  //                                |             -------------------------
+  //                            1.origin                    |
+  //                                                    6.host
   var DEFAULT_PORT = {
     "ftp:":    "21",
     "ssh:":    "22",
@@ -19,17 +23,19 @@ define(function(require, exports, module) {
     var u = RE_URL.exec(url);
 
     this.uri = url;
+    this.origin = u[1];
+    this.protocol = u[2];
     //! URI已解码的授权组成部分，未实现。
     this.authority;
-    this.protocol = u[1];
-    this.username = u[3];
-    this.password = u[4];
-    this.host = u[5];
-    this.port = u[6] || DEFAULT_PORT[this.protocol] || "";
-    this.path = u[7] || "/";
-    this.query = u[8] || "";
-    this._query = parseQuery(u[8]);
-    this.fragment = u[9] || "";
+    this.username = u[4];
+    this.password = u[5];
+    this.host = u[6];
+    this.hostname = u[7];
+    this.port = u[8] || DEFAULT_PORT[this.protocol] || "";
+    this.path = u[9] || "/";
+    this.query = u[10] || "";
+    this._query = parseQuery(this.query);
+    this.fragment = u[11] || "";
   };
 
   function parseQuery(query){
