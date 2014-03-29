@@ -1,32 +1,38 @@
-define("hotoo/url/1.0.0/url-debug", [], function(require, exports, module) {
-    //                protocol   username password    host         port     path        query   hash
-    //                   |           |       |          |            |        |           |       |
-    //                ------       -----  ------   -----------     -----  ----------- --------- -----
-    var RE_URL = /^(?:(\w+:)\/\/)?((\w+):?(\w+)?@)?([^\/\?:]+)(?:\:(\d+))?(\/[^\?#]+)?(\?[^#]+)?(#.*)?/;
-    var DEFAULT_PORT = {
-        ftp: 21,
-        ssh: 22,
-        telnet: 23,
-        smtp: 25,
-        http: 80,
-        pop3: 109,
-        https: 443,
-        mms: 1755
-    };
+define("hotoo/url/1.1.0/url-debug", [], function(require, exports, module) {
+    //             2.protocol  4.username 5.password 7.hostname     8.port     9.path   10.search 11.hash
+    //                    |           |       |           |            |          |           |       |
+    //                 ------       -----  ------    -----------     -----    ----------- --------- -----
+    var RE_URL = /^((?:(\w+:)\/\/)?((\w+):?(\w+)?@)?(([^\/\?:]+)(?:\:(\d+))?))(\/[^\?#]+)?(\?[^#]+)?(#.*)?/;
+    //             -----------------------------------------------------------
+    //                                |             -------------------------
+    //                            1.origin                    |
+    //                                                    6.host
     var Url = function(url) {
         var u = RE_URL.exec(url);
         this.uri = url;
+        this.origin = u[1];
+        this.protocol = u[2];
         //! URI已解码的授权组成部分，未实现。
         this.authority;
-        this.protocol = u[1];
-        this.username = u[3];
-        this.password = u[4];
-        this.host = u[5];
-        this.port = u[6];
-        this.path = u[7];
-        this.query = u[8];
-        this._query = parseQuery(u[8]);
-        this.fragment = u[9];
+        this.username = u[4];
+        this.password = u[5];
+        this.host = u[6] || "";
+        this.hostname = u[7] || "";
+        this.port = u[8] || "";
+        this.path = u[9] || "/";
+        this.search = u[10] || "";
+        this._query = parseQuery(this.search);
+        this.hash = u[11] || "";
+    };
+    // get origin info.
+    // @return {String}
+    Url.prototype.getOrigin = function() {
+        return this.protocol + "//" + this.getHost();
+    };
+    // get host info.
+    // @return {String}
+    Url.prototype.getHost = function() {
+        return this.hostname + (this.port ? ":" + this.port : "");
     };
     function parseQuery(query) {
         var q = "?";
@@ -51,6 +57,27 @@ define("hotoo/url/1.0.0/url-debug", [], function(require, exports, module) {
         }
         return rst;
     }
+    // make querystring from object.
+    // @param {Object} object, key:value pair object.
+    // @return {String}
+    function makeQueryString(object) {
+        var query = [];
+        for (var key in object) {
+            if (!object.hasOwnProperty(key)) {
+                continue;
+            }
+            var _key = encodeURIComponent(key);
+            var values = object[key];
+            if (isArray(values)) {
+                for (var i = 0, l = values.length; i < l; i++) {
+                    query.push(_key + "=" + encodeURIComponent(values[i]));
+                }
+            } else {
+                query.push(_key + "=" + encodeURIComponent(values));
+            }
+        }
+        return (query.length === 0 ? "" : "?") + query.join("&");
+    }
     // Get param, if has more than one, return the first one.
     // if has no-one, return null.
     //
@@ -72,7 +99,7 @@ define("hotoo/url/1.0.0/url-debug", [], function(require, exports, module) {
     Url.prototype.delParam = function(name) {
         try {
             delete this._query[name];
-            this.query = makeQueryString(this._query);
+            this.search = makeQueryString(this._query);
         } catch (ex) {}
         return this;
     };
@@ -85,7 +112,7 @@ define("hotoo/url/1.0.0/url-debug", [], function(require, exports, module) {
             value = [ value ];
         }
         this._query[name] = value;
-        this.query = makeQueryString(this._query);
+        this.search = makeQueryString(this._query);
         return this;
     };
     // Add params.
@@ -97,24 +124,23 @@ define("hotoo/url/1.0.0/url-debug", [], function(require, exports, module) {
             value = [ value ];
         }
         if (this._query.hasOwnProperty(name)) {
-            this._query[name].concat(value);
+            this._query[name] = this._query[name].concat(value);
         } else {
             this._query[name] = value;
         }
+        this.search = makeQueryString(this._query);
         return this;
     };
-    function makeQueryString(object) {
-        var query = [];
-        for (var key in object) {
-            if (!object.hasOwnProperty(key)) {
-                continue;
-            }
-            query.push(encodeURIComponent(key) + "=" + encodeURIComponent(object[key]));
-        }
-        return "?" + query.join("&");
-    }
+    // Clear all param datas.
+    // @return {Url} this.
+    Url.prototype.clearParams = function() {
+        this._query = {};
+        this.search = makeQueryString(this._query);
+        return this;
+    };
     Url.prototype.toString = function() {
-        return this.protocol + "//" + (this.username ? this.username + ":" + this.password + "@" : "") + this.host + (this.port ? ":" + this.port : "") + this.path + makeQueryString(this._query) + this.fragment;
+        return this.protocol + "//" + (this.username ? this.username + ":" + this.password + "@" : "") + this.hostname + (// default port donot print.
+        this.port ? ":" + this.port : "") + this.path + makeQueryString(this._query) + this.hash;
     };
     Url.verify = function(uri) {
         return RE_URL.test(uri);
