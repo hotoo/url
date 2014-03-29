@@ -77,6 +77,7 @@ define(function(require) {
         expect(url.username).to.equal(r.username);
         expect(url.password).to.equal(r.password);
         expect(url.host).to.equal(r.host);
+        expect(url.hostname).to.equal(r.hostname);
         expect(url.port).to.equal(r.port);
         expect(url.path).to.equal(r.path);
         expect(url.query).to.equal(r.query);
