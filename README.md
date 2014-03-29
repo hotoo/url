@@ -26,15 +26,17 @@ console.log(url.getParams("pa")); // ["A1", "A2"]
 
 Constructor.
 
+* `origin`: readonly.
 * `protocol`: read+write.
 * `username`: read+write.
 * `password`: read+write.
-* `host`: read+write.
+* `host`: readonly.
+* `hostname`: read+write.
 * `port`: read+write.
 * `path`: read+write.
-* `query`: **readonly!** Please use `setParam()`, `addParam()`, `delParam()`,
+* `search`: **readonly!** Please use `setParam()`, `addParam()`, `delParam()`,
   and `clearParams()` method to modify query.
-* `fragment`: read+write.
+* `hash`: read+write.
 
 ### String getParam(String name)
 
