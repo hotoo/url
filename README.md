@@ -27,17 +27,27 @@ console.log(url.getParams("pa")); // ["A1", "A2"]
 Constructor.
 
 * `origin`: readonly, and not changed when protocol, hostname, port modified!
-  until one day most of all browseres supports `Object.defineProperty()`.
+  Until one day most of all browseres supports `Object.defineProperty()`.
+  Use `getOrigin()` instead.
 * `protocol`: read+write.
 * `username`: read+write.
 * `password`: read+write.
-* `host`: readonly, not changed same the `origin` property.
+* `host`: readonly, not changed same the `origin` property. Use `getHost()`
+  instead.
 * `hostname`: read+write.
 * `port`: read+write.
 * `path`: read+write.
 * `search`: **readonly!** Please use `setParam()`, `addParam()`, `delParam()`,
   and `clearParams()` method to modify query.
 * `hash`: read+write.
+
+### String getOrigin()
+
+Get the origin info.
+
+### String getHost()
+
+Get the host info.
 
 ### String getParam(String name)
 

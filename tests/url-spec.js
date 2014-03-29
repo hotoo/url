@@ -87,6 +87,27 @@ define(function(require) {
 
     });
 
+    it('get origin', function() {
+
+      var url = new Url("http://www.example.com/path/to/index.html?q=a&u=b&q=c#hash");
+      url.protocol = "https:";
+      url.hostname = "abc.com";
+      url.port = "8080";
+      expect(url.getOrigin()).to.equal("https://abc.com:8080");
+      expect(url.toString()).to.equal("https://abc.com:8080/path/to/index.html?q=a&q=c&u=b#hash");
+
+    });
+
+    it('get host', function() {
+
+      var url = new Url("http://www.example.com/path/to/index.html?q=a&u=b&q=c#hash");
+      url.hostname = "abc.com";
+      url.port = "8080";
+      expect(url.getHost()).to.equal("abc.com:8080");
+      expect(url.toString()).to.equal("http://abc.com:8080/path/to/index.html?q=a&q=c&u=b#hash");
+
+    });
+
     it('get param', function() {
 
       var url = new Url("http://www.example.com/path/to/index.html?q=a&u=b&q=c#hash");

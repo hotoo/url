@@ -28,6 +28,18 @@ define(function(require, exports, module) {
     this.hash = u[11] || "";
   };
 
+  // get origin info.
+  // @return {String}
+  Url.prototype.getOrigin = function(){
+    return this.protocol + "//" + this.getHost();
+  };
+
+  // get host info.
+  // @return {String}
+  Url.prototype.getHost = function(){
+    return this.hostname + (this.port ? ":" + this.port : "");
+  };
+
   function parseQuery(query){
     var q = "?";
     var eq = "=";
@@ -141,7 +153,7 @@ define(function(require, exports, module) {
   Url.prototype.toString = function(){
     return this.protocol + '//' +
       (this.username ? this.username + ':' + this.password + '@' : '') +
-      this.host +
+      this.hostname +
       // default port donot print.
       (this.port ? ':' + this.port : '') +
       this.path + makeQueryString(this._query) + this.hash;
