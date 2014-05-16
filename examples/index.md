@@ -3,7 +3,7 @@
 ---
 
 ````javascript
-seajs.use('url', function(url){
+seajs.use('../url', function(url){
 
 });
 ````

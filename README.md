@@ -2,6 +2,7 @@
 
 ---
 
+[![spm package](http://spmjs.io/badge/url)](http://spmjs.io/package/url)
 [![Build Status](https://travis-ci.org/hotoo/url.png)](https://travis-ci.org/hotoo/url)
 [![Coverage Status](https://coveralls.io/repos/hotoo/url/badge.png?branch=master)](https://coveralls.io/r/hotoo/url)
 
