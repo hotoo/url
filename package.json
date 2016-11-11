@@ -1,5 +1,5 @@
 {
-  "name": "url",
+  "name": "aurl",
   "version": "1.2.0",
   "description": "Uniform Resource Locator.",
   "homepage": "https://github.com/hotoo/url",
@@ -15,6 +15,7 @@
   },
   "keywords": ["utility"],
   "licenses": "MIT",
+  "main": "url.js",
   "spm": {
     "main": "url.js",
     "devDependencies": {
